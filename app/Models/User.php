@@ -47,4 +47,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * (Audit Trail): Get all the certificates this Admin/Staff member has processed.
+     */
+    public function processedCertificates()
+    {
+        return $this->hasMany(CertificateRequest::class, 'processed_by_user_id');
+    }
 }

@@ -36,4 +36,20 @@ class Resident extends Model
     {
         return $this->hasMany(CertificateRequest::class);
     }
+
+    /**
+     * NEW ADDITION: A resident can report many incidents.
+     */
+    public function incidents()
+    {
+        return $this->hasMany(Incident::class);
+    }
+
+    /**
+     * NEW ADDITION: A resident can register for many events.
+     */
+    public function eventRegistrations()
+    {
+        return $this->hasMany(EventRegistration::class);
+    }
 }

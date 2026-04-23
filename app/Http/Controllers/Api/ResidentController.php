@@ -7,6 +7,8 @@ use App\Models\Resident;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail; // Add this import
+use App\Mail\WelcomeResidentMail;    // Add this import
 
 class ResidentController extends Controller
 {
@@ -30,10 +32,12 @@ class ResidentController extends Controller
         // 2. Save the validated data to the MySQL Database
         $resident = Resident::create($validatedData);
 
-        // 3. Trigger Automations (We will build these pieces next!)
+        // 3. Trigger Automations 
         
-        // TODO: Trigger Mailtrap Welcome Email
-        // $this->sendWelcomeEmail($resident);
+        // Trigger Mailtrap Welcome Email
+        if ($resident->email) {
+            Mail::to($resident->email)->send(new WelcomeResidentMail($resident));
+        }
 
         // TODO: Trigger Local SMS Gateway
         // $this->sendWelcomeSMS($resident);
