@@ -10,6 +10,9 @@ class Resident extends Model
 {
     use HasFactory, HasUuids;
 
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     /**
      * The attributes that are mass assignable.
      */
