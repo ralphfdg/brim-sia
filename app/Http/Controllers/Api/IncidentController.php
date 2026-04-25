@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Incident;
-use App\Models\Resident;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class IncidentController extends Controller
 {
@@ -16,44 +16,41 @@ class IncidentController extends Controller
      */
     public function store(Request $request)
     {
-        // 1. Validate the incoming blotter report
+        // 1. SECURE IDENTIFICATION: Get the Resident profile linked to the logged-in User
+        $resident = auth()->user()->resident;
+
+        if (!$resident) {
+            return response()->json(['error' => 'Resident profile not found for this account.'], 403);
+        }
+
+        // 2. Validate ONLY the inputs we need from the frontend form
         $validatedData = $request->validate([
-            'resident_id' => 'required|uuid|exists:residents,id',
             'incident_type' => 'required|string|max:255',
             'description' => 'required|string',
             'location_details' => 'required|string|max:255',
-            'incident_date' => 'required|date',
         ]);
 
-        // 2. Save the incident to the database
+        // 3. Save the incident securely using backend-generated data
         $incident = Incident::create([
-            'resident_id' => $validatedData['resident_id'],
+            'id' => (string) Str::uuid(), // Generate the UUID for the primary key
+            'resident_id' => $resident->id, // Extracted securely from the session, NOT the frontend
             'incident_type' => $validatedData['incident_type'],
             'description' => $validatedData['description'],
             'location_details' => $validatedData['location_details'],
-            'incident_date' => $validatedData['incident_date'],
+            'incident_date' => now(), // Automatically capture the exact time
             'status' => 'Pending',
         ]);
 
-        // 3. Load the resident data so we know who reported it
-        $incident->load('resident');
-        $reporterName = $incident->resident->first_name . ' ' . $incident->resident->last_name;
-
         // 4. AUTOMATED WORKFLOW INTEGRATION (Traccar SMS Gateway)
-        // Format the emergency message
+        $reporterName = $resident->first_name . ' ' . $resident->last_name;
         $smsMessage = "B.R.I.M. ALERT: New {$incident->incident_type} reported by {$reporterName} at {$incident->location_details}. Details: {$incident->description}";
 
-        // The phone number of the Barangay Tanod on duty
-        $tanodPhoneNumber = env('BARANGAY_TANOD_PHONE'); // Replace with your actual test number
+        $tanodPhoneNumber = env('BARANGAY_TANOD_PHONE'); 
 
         try {
-            // 1. The ENDPOINT (The IP address on the app screen)
             $traccarEndpoint = env('TRACCAR_ENDPOINT'); 
-            
-            // 2. The TOKEN (The secret password on the app screen) 
             $traccarToken = env('TRACCAR_TOKEN'); 
 
-            // 3. Send the request with the Authorization header!
             Http::timeout(5)
                 ->withHeaders([
                     'Authorization' => $traccarToken 
@@ -69,7 +66,7 @@ class IncidentController extends Controller
             Log::error("Traccar SMS Gateway unreachable: " . $e->getMessage());
         }
 
-        // 5. Return success to the resident
+        // 5. Return success to the resident's browser
         return response()->json([
             'message' => 'Incident reported successfully. The Barangay Tanod has been alerted.',
             'data' => $incident

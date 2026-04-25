@@ -19,15 +19,15 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <a href="{{ route('incidents') }}" class="block p-6 bg-white shadow-sm sm:rounded-lg hover:bg-gray-50 border border-gray-200">
+                <a href="{{ route('resident.incidents') }}" class="block p-6 bg-white shadow-sm sm:rounded-lg hover:bg-gray-50 border border-gray-200">
                     <h3 class="text-lg font-bold text-red-600">🚨 Report Incident</h3>
                     <p class="text-sm text-gray-600">Alert the Barangay Tanod instantly.</p>
                 </a>
-                <a href="{{ route('certificates') }}" class="block p-6 bg-white shadow-sm sm:rounded-lg hover:bg-gray-50 border border-gray-200">
+                <a href="{{ route('resident.certificates') }}" class="block p-6 bg-white shadow-sm sm:rounded-lg hover:bg-gray-50 border border-gray-200">
                     <h3 class="text-lg font-bold text-green-600">📄 Request Certificate</h3>
                     <p class="text-sm text-gray-600">Get clearance documents & pay online.</p>
                 </a>
-                <a href="{{ route('events') }}" class="block p-6 bg-white shadow-sm sm:rounded-lg hover:bg-gray-50 border border-gray-200">
+                <a href="{{ route('resident.events') }}" class="block p-6 bg-white shadow-sm sm:rounded-lg hover:bg-gray-50 border border-gray-200">
                     <h3 class="text-lg font-bold text-purple-600">📅 Community Events</h3>
                     <p class="text-sm text-gray-600">Join upcoming barangay activities.</p>
                 </a>

@@ -1,50 +1,59 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Api\IncidentController;
+use App\Http\Controllers\Api\CertificateRequestController;
+use App\Http\Controllers\Api\EventController; // <-- New Import
+use App\Http\Controllers\Api\EventRegistrationController; // <-- New Import
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Public Routes
-|--------------------------------------------------------------------------
-*/
+Route::get('/', function () { return view('welcome'); });
 
-// The Public Landing Page (welcome.blade.php)
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
-/*
-|--------------------------------------------------------------------------
-| Protected Routes (Must be logged in)
-|--------------------------------------------------------------------------
-*/
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    // 1. The "Smart" Dashboard Route
     Route::get('/dashboard', function () {
-        // Look at the user's Spatie Role and show the correct file
-        if (auth()->user()->hasRole('admin')) {
-            return view('admin.dashboard');
-        }
-        
+        if (auth()->user()->hasRole('admin')) return view('admin.dashboard');
         return view('resident.dashboard');
     })->name('dashboard');
 
-
-    // 2. Default Profile Management (from Laravel Breeze)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // ------------------------------------------------------------------------
+    // RESIDENT ROUTES
+    // ------------------------------------------------------------------------
+    Route::middleware(['role:user'])->group(function () {
+        Route::view('/incidents', 'resident.incidents')->name('resident.incidents');
+        Route::post('/incidents', [IncidentController::class, 'store']);
+        
+        Route::view('/certificates', 'resident.certificates')->name('resident.certificates');
+        Route::post('/certificates', [CertificateRequestController::class, 'store']);
+        
+        // Updated Event Routes for Resident
+        Route::get('/events', function() {
+            // Pass all upcoming events to the Blade file
+            $events = \App\Models\Event::where('status', 'Upcoming')->orderBy('event_date', 'asc')->get();
+            return view('resident.events', ['events' => $events]);
+        })->name('resident.events');
+        Route::post('/event-registrations', [EventRegistrationController::class, 'store']);
+    });
 
-    // 3. System Features (Bare-minimum routes for testing)
-    // We will build the views for these as we tackle each workflow
-    Route::view('/incidents', 'incidents')->name('incidents');
-    // Route::view('/certificates', 'certificates')->name('certificates');
-    // Route::view('/events', 'events')->name('events');
+    // ------------------------------------------------------------------------
+    // ADMIN ROUTES
+    // ------------------------------------------------------------------------
+    Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
+        Route::get('/certificates', function () {
+            $pendingCertificates = \App\Models\CertificateRequest::with('resident')->where('payment_status', 'Paid')->where('request_status', 'Pending')->get();
+            return view('admin.certificates', ['certificates' => $pendingCertificates]);
+        })->name('certificates');
+        Route::put('/certificates/{id}', [CertificateRequestController::class, 'update']);
+
+        // New Event Routes for Admin
+        Route::view('/events', 'admin.events')->name('events');
+        Route::post('/events', [EventController::class, 'store']);
+    });
+
 });
 
-// This loads all the Login/Register backend logic from Breeze
 require __DIR__.'/auth.php';

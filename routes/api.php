@@ -2,40 +2,27 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\ResidentController;
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\CertificateRequestController;
-use App\Http\Controllers\Api\IncidentController;
-use App\Http\Controllers\Api\EventController;
-use App\Http\Controllers\Api\EventRegistrationController;
 use App\Http\Controllers\Api\WebhookController;
-use App\Http\Controllers\Api\WeatherController;
 
-// PUBLIC ROUTES
-Route::post('/register', [AuthController::class, 'register']); // <-- Add this line
-Route::post('/login', [AuthController::class, 'login']);
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+| These routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "api" middleware group. 
+|
+| IMPORTANT: These routes do NOT use session cookies. They are strictly for
+| external services (like Stripe or Make.com) or external mobile apps.
+|--------------------------------------------------------------------------
+*/
+
+// 1. STRIPE WEBHOOK (External Service)
+// Stripe will hit this URL automatically when a resident successfully pays.
 Route::post('/webhooks/stripe', [WebhookController::class, 'handleStripePayment']);
 
-// SECURE ROUTES (Must have a Sanctum Token)
-Route::middleware('auth:sanctum')->group(function () {
 
-    Route::get('/weather', [WeatherController::class, 'current']);
-    
-    // ----------------------------------------------------
-    // ADMIN ONLY ROUTES (Secretary)
-    // ----------------------------------------------------
-    Route::middleware('role:admin')->group(function () {
-        Route::post('/events', [EventController::class, 'store']);
-        // (Later: Route to approve certificates will go here)
-    });
-
-    // ----------------------------------------------------
-    // USER ONLY ROUTES (Residents)
-    // ----------------------------------------------------
-    Route::middleware('role:user')->group(function () {
-        Route::post('/certificates', [CertificateRequestController::class, 'store']);
-        Route::post('/incidents', [IncidentController::class, 'store']);
-        Route::post('/event-registrations', [EventRegistrationController::class, 'store']);
-    });
-
-});
+// 2. STANDARD SANCTUM ROUTE (Boilerplate)
+// Leave this here in case you ever build an Android/iOS app later!
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+}); 
