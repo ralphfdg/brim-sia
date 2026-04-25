@@ -8,11 +8,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens; // 1. Add this import for API security
 use Illuminate\Database\Eloquent\Concerns\HasUuids; // 2. Add this for UUIDs
+use Spatie\Permission\Traits\HasRoles; // <-- Spatie
 
 class User extends Authenticatable
 {
     // 3. Add HasApiTokens and HasUuids inside the class here
-    use HasApiTokens, HasFactory, Notifiable, HasUuids; 
+    use HasApiTokens, HasFactory, Notifiable, HasUuids, HasRoles; 
 
     public $incrementing = false;
     protected $keyType = 'string';
