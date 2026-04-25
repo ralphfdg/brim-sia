@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Api\IncidentController;
+use App\Http\Controllers\Api\WeatherController;
 use App\Http\Controllers\Api\CertificateRequestController;
 use App\Http\Controllers\Api\EventController; // <-- New Import
 use App\Http\Controllers\Api\EventRegistrationController; // <-- New Import
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () { return view('welcome'); });
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/api/weather', [WeatherController::class, 'current']);
 
     Route::get('/dashboard', function () {
         if (auth()->user()->hasRole('admin')) return view('admin.dashboard');

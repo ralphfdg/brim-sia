@@ -1,26 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Event Ticket</title>
-</head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-    <h2>Hello, {{ $resident->first_name }}!</h2>
+<div style="font-family: sans-serif; padding: 20px; border: 1px solid #ccc; border-radius: 8px;">
+    <h2 style="color: purple;">Event Registration Confirmed! 🎟️</h2>
+    <p>Hello <strong>{{ $resident->first_name }}</strong>,</p>
+    <p>You are officially registered for the upcoming barangay event:</p>
     
-    <p>You have successfully registered for the upcoming barangay event:</p>
-    
-    <div style="background-color: #f4f4f4; padding: 15px; border-radius: 5px;">
-        <h3 style="margin-top: 0;">{{ $event->event_name }}</h3>
-        <p><strong>Date:</strong> {{ $event->event_date }}</p>
-        <p><strong>Status:</strong> 
-            @if($event->registration_fee > 0)
-                <span style="color: red;">Unpaid - Please proceed to the barangay hall to pay your fee of P{{ $event->registration_fee }}.</span>
-            @else
-                <span style="color: green;">Free Event - You are fully registered!</span>
-            @endif
-        </p>
+    <div style="background: #f3f4f6; padding: 15px; border-radius: 5px; margin: 15px 0;">
+        <h3 style="margin: 0 0 10px 0;">{{ $event->event_name }}</h3>
+        <p style="margin: 5px 0;"><strong>📅 Date:</strong> {{ \Carbon\Carbon::parse($event->event_date)->format('F j, Y, g:i a') }}</p>
+        <p style="margin: 5px 0;"><strong>📍 Location:</strong> {{ $event->location ?? 'TBA' }}</p>
     </div>
 
-    <p>Thank you for participating in our community!<br>
-    <strong>Barangay B.R.I.M. Administration</strong></p>
-</body>
-</html>
+    <p>Please present this email or your ID at the venue entrance.</p>
+    <br>
+    <p>See you there,<br><strong>Barangay Administration</strong></p>
+</div>

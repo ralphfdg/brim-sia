@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+use App\Mail\WelcomeMail;
 
 class RegisteredUserController extends Controller
 {
@@ -68,8 +72,30 @@ class RegisteredUserController extends Controller
             'residency_status' => 'Active',
         ]);
 
-        Auth::login($user);
+      
+        // 1. Send Welcome Email (Mailtrap)
+        try {
+            Mail::to($user->email)->send(new WelcomeMail($user));
+        } catch (\Exception $e) {
+            Log::error('Mailtrap Error: ' . $e->getMessage());
+        }
 
+        // 2. Send SMS Welcome (Traccar)
+        try {
+            $traccarEndpoint = env('TRACCAR_ENDPOINT'); 
+            $traccarToken = env('TRACCAR_TOKEN'); 
+
+            Http::timeout(5)->withHeaders([
+                'Authorization' => $traccarToken 
+            ])->post($traccarEndpoint, [
+                'to' => $request->contact_number, // The resident's phone number
+                'message' => "Welcome to B.R.I.M., {$request->first_name}! Your resident account has been successfully registered."
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Traccar SMS Error: ' . $e->getMessage());
+        }
+
+        Auth::login($user);
         return redirect(route('dashboard', absolute: false));
     }
 }

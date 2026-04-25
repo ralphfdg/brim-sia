@@ -6,26 +6,24 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class EventTicketMail extends Mailable
+class CertificateRequestedMail extends Mailable
 {
     use Queueable, SerializesModels;
     
-    public $event;
-    public $resident;
+    public $certificateRequest;
 
-    public function __construct($event, $resident)
+    public function __construct($certificateRequest)
     {
-        $this->event = $event;
-        $this->resident = $resident;
+        $this->certificateRequest = $certificateRequest;
     }
 
     public function envelope(): Envelope
     {
-        return new Envelope(subject: 'Your Event Ticket - ' . $this->event->event_name);
+        return new Envelope(subject: 'Certificate Request Received');
     }
 
     public function content(): Content
     {
-        return new Content(view: 'emails.event_ticket');
+        return new Content(view: 'emails.certificate_requested');
     }
 }
