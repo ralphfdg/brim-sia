@@ -52,6 +52,12 @@ class User extends Authenticatable
         ];
     }
 
+    // A User has one Resident profile
+    public function resident()
+    {
+        return $this->hasOne(Resident::class);
+    }
+
     /**
      * (Audit Trail): Get all the certificates this Admin/Staff member has processed.
      */

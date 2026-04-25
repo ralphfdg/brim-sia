@@ -17,6 +17,7 @@ class Resident extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [
+        'user_id',
         'first_name',
         'middle_name',
         'last_name',
@@ -26,11 +27,16 @@ class Resident extends Model
         'civil_status',
         'purok_or_street',
         'contact_number',
-        'email',
         'is_registered_voter',
         'occupation',
         'residency_status',
     ];
+
+    // A Resident profile belongs to one User account
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /**
      * Relationship: One Resident has many Certificate Requests.
