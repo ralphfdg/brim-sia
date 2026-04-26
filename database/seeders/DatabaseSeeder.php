@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Resident;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Database\Seeders\RoleSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,6 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(RoleSeeder::class);
         // 1. Create one User (Admin/Staff)
         User::create([
             'id' => (string) Str::uuid(),
@@ -36,7 +38,6 @@ class DatabaseSeeder extends Seeder
             'civil_status' => 'Single', // Enum: Single, Married, Widowed, Legally Separated
             'purok_or_street' => 'Purok 1, Main St.',
             'contact_number' => '09123456789',
-            'email' => 'john.doe@example.com',
             'is_registered_voter' => true,
             'occupation' => 'Software Developer',
             'residency_status' => 'Active', // Enum: Active, Moved, Deceased
