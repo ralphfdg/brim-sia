@@ -101,7 +101,7 @@
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                      <div class="space-y-2">
                         <label for="date_of_birth" class="text-[11px] font-bold text-slate-500 uppercase tracking-widest ml-1">Date of Birth <span class="text-red-500">*</span></label>
-                        <input id="date_of_birth" type="date" name="date_of_birth" required class="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm transition-all form-input-focus">
+                        <input id="date_of_birth" type="date" name="date_of_birth" required max="{{ date('Y-m-d') }}" min="1900-01-01" class="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm transition-all form-input-focus">
                      </div>
                      <div class="space-y-2">
                         <label for="gender" class="text-[11px] font-bold text-slate-500 uppercase tracking-widest ml-1">Gender <span class="text-red-500">*</span></label>
