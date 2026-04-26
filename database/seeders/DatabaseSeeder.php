@@ -15,8 +15,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Create one User (Admin/Staff)
-        User::create([
+        // 1. Call the RoleSeeder FIRST so the roles exist in the database
+        $this->call([
+            RoleSeeder::class,
+        ]);
+
+        // 2. Create one User (Admin/Staff)
+        $adminUser = User::create([
             'id' => (string) Str::uuid(),
             'name' => 'Admin User',
             'email' => 'admin@example.com',
@@ -24,7 +29,10 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
         ]);
 
-        // 2. Create one Resident
+        // Assign the newly created admin role to this user account
+        $adminUser->assignRole('admin');
+
+        // 3. Create one Resident
         Resident::create([
             'id' => (string) Str::uuid(),
             'first_name' => 'John',
@@ -36,7 +44,6 @@ class DatabaseSeeder extends Seeder
             'civil_status' => 'Single', // Enum: Single, Married, Widowed, Legally Separated
             'purok_or_street' => 'Purok 1, Main St.',
             'contact_number' => '09123456789',
-            'email' => 'john.doe@example.com',
             'is_registered_voter' => true,
             'occupation' => 'Software Developer',
             'residency_status' => 'Active', // Enum: Active, Moved, Deceased
