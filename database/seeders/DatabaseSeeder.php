@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Resident;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Database\Seeders\RoleSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,13 +16,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Call the RoleSeeder FIRST so the roles exist in the database
-        $this->call([
-            RoleSeeder::class,
-        ]);
-
-        // 2. Create one User (Admin/Staff)
-        $adminUser = User::create([
+        $this->call(RoleSeeder::class);
+        // 1. Create one User (Admin/Staff)
+        User::create([
             'id' => (string) Str::uuid(),
             'name' => 'Admin User',
             'email' => 'admin@example.com',
