@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\WebhookController;
+use App\Http\Controllers\Api\ResidentApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,18 @@ Route::post('/webhooks/stripe', [WebhookController::class, 'handleStripePayment'
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 }); 
+
+// ---------------------------------------------------------
+// B.R.I.M. SECURE API (Producing)
+// ---------------------------------------------------------
+
+// Any route inside this group REQUIRES a Bearer Token in the header
+Route::middleware('auth:sanctum')->group(function () {
+    
+    Route::get('/residents', [ResidentApiController::class, 'index']);
+    Route::get('/residents/{id}', [ResidentApiController::class, 'show']);
+    Route::post('/residents', [ResidentApiController::class, 'store']);
+    Route::patch('/residents/{id}', [ResidentApiController::class, 'update']);
+    Route::delete('/residents/{id}', [ResidentApiController::class, 'destroy']);
+
+});

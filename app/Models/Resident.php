@@ -17,10 +17,11 @@ class Resident extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-        'user_id',
-        'first_name',
+        'id', 
+        'user_id', 
+        'first_name', 
         'middle_name',
-        'last_name',
+        'last_name', 
         'suffix',
         'date_of_birth',
         'gender',
@@ -29,7 +30,14 @@ class Resident extends Model
         'contact_number',
         'is_registered_voter',
         'occupation',
-        'residency_status',
+        'residency_status'
+    ];
+
+    // These fields will be completely invisible whenever this model is sent as an API response!
+    protected $hidden = [
+        'user_id',
+        'created_at',
+        'updated_at'
     ];
 
     // A Resident profile belongs to one User account

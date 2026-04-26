@@ -1,0 +1,549 @@
+name: 'Resident Management'
+description: |-
+
+  APIs for managing the barangay resident database.
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/residents
+    metadata:
+      custom: []
+      groupName: 'Resident Management'
+      groupDescription: |-
+
+        APIs for managing the barangay resident database.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'List all residents'
+      description: |-
+        Returns a paginated list of all residents in the barangay.
+        * @authenticated
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer 2|QPLZULRCAJn0AawU3fxv438vm9EjYeUribd335l44cbbca08'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"status":"success","message":"Residents retrieved successfully.","data":{"current_page":1,"data":[{"id":"019dc54c-aa04-704a-bcd2-49b05b982a07","first_name":"test","middle_name":"t","last_name":"test1","suffix":null,"date_of_birth":"2019-01-29","gender":"Male","civil_status":"Single","purok_or_street":"FPH 11","contact_number":"09288736929","is_registered_voter":0,"occupation":"Worker","residency_status":"Active"},{"id":"019dc6ab-5cc6-7019-b124-e0ae3c50b7a9","first_name":"Maria","middle_name":null,"last_name":"Dela Cruz","suffix":null,"date_of_birth":"1985-10-16","gender":"Female","civil_status":"Single","purok_or_street":"FPH 1 brgy2","contact_number":"09288736929","is_registered_voter":0,"occupation":"Housewife","residency_status":"Active"}],"first_page_url":"http:\/\/localhost:8000\/api\/residents?page=1","from":1,"last_page":1,"last_page_url":"http:\/\/localhost:8000\/api\/residents?page=1","links":[{"url":null,"label":"&laquo; Previous","page":null,"active":false},{"url":"http:\/\/localhost:8000\/api\/residents?page=1","label":"1","page":1,"active":true},{"url":null,"label":"Next &raquo;","page":null,"active":false}],"next_page_url":null,"path":"http:\/\/localhost:8000\/api\/residents","per_page":15,"prev_page_url":null,"to":2,"total":2}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 2|QPLZULRCAJn0AawU3fxv438vm9EjYeUribd335l44cbbca08'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/residents/{id}'
+    metadata:
+      custom: []
+      groupName: 'Resident Management'
+      groupDescription: |-
+
+        APIs for managing the barangay resident database.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get a specific resident'
+      description: |-
+        Retrieves the complete profile of a single resident using their UUID.
+        * @authenticated
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer 2|QPLZULRCAJn0AawU3fxv438vm9EjYeUribd335l44cbbca08'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The UUID of the resident.'
+        required: true
+        example: 019dc54c-aa04-704a-bcd2-49b05b982a07
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 019dc54c-aa04-704a-bcd2-49b05b982a07
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"status":"success","message":"Resident details retrieved.","data":{"id":"019dc54c-aa04-704a-bcd2-49b05b982a07","first_name":"test","middle_name":"t","last_name":"test1","suffix":null,"date_of_birth":"2019-01-29","gender":"Male","civil_status":"Single","purok_or_street":"FPH 11","contact_number":"09288736929","is_registered_voter":0,"occupation":"Worker","residency_status":"Active"}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 2|QPLZULRCAJn0AawU3fxv438vm9EjYeUribd335l44cbbca08'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/residents
+    metadata:
+      custom: []
+      groupName: 'Resident Management'
+      groupDescription: |-
+
+        APIs for managing the barangay resident database.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Register a new resident'
+      description: 'Creates a new resident record in the database.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer 2|QPLZULRCAJn0AawU3fxv438vm9EjYeUribd335l44cbbca08'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      first_name:
+        custom: []
+        name: first_name
+        description: 'The first name of the resident.'
+        required: true
+        example: Juan
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      middle_name:
+        custom: []
+        name: middle_name
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: amniihfqcoynlazghdtqt
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      last_name:
+        custom: []
+        name: last_name
+        description: 'The last name.'
+        required: true
+        example: 'Dela Cruz'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      suffix:
+        custom: []
+        name: suffix
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: auydlsmsjuryvojcybzvr
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      date_of_birth:
+        custom: []
+        name: date_of_birth
+        description: 'Format: YYYY-MM-DD.'
+        required: true
+        example: '1990-05-15'
+        type: date
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      gender:
+        custom: []
+        name: gender
+        description: 'Must be Male, Female, or Other.'
+        required: true
+        example: Male
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      civil_status:
+        custom: []
+        name: civil_status
+        description: 'Single, Married, Widowed, or Legally Separated.'
+        required: true
+        example: Single
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      purok_or_street:
+        custom: []
+        name: purok_or_street
+        description: 'Street address.'
+        required: true
+        example: 'Purok 1'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      contact_number:
+        custom: []
+        name: contact_number
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: vazjrcnfbaqywuxhgjjmz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      is_registered_voter:
+        custom: []
+        name: is_registered_voter
+        description: ''
+        required: false
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      occupation:
+        custom: []
+        name: occupation
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: uxjubqouzswiwxtrkimfc
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      residency_status:
+        custom: []
+        name: residency_status
+        description: ''
+        required: false
+        example: Active
+        type: string
+        enumValues:
+          - Active
+          - Moved
+          - Deceased
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      first_name: Juan
+      middle_name: amniihfqcoynlazghdtqt
+      last_name: 'Dela Cruz'
+      suffix: auydlsmsjuryvojcybzvr
+      date_of_birth: '1990-05-15'
+      gender: Male
+      civil_status: Single
+      purok_or_street: 'Purok 1'
+      contact_number: vazjrcnfbaqywuxhgjjmz
+      is_registered_voter: false
+      occupation: uxjubqouzswiwxtrkimfc
+      residency_status: Active
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 2|QPLZULRCAJn0AawU3fxv438vm9EjYeUribd335l44cbbca08'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PATCH
+    uri: 'api/residents/{id}'
+    metadata:
+      custom: []
+      groupName: 'Resident Management'
+      groupDescription: |-
+
+        APIs for managing the barangay resident database.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update a resident'
+      description: "Partially update an existing resident's information. You only need to send the fields you wish to change."
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer 2|QPLZULRCAJn0AawU3fxv438vm9EjYeUribd335l44cbbca08'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The UUID of the resident.'
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: consequatur
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      first_name:
+        custom: []
+        name: first_name
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: vmqeopfuudtdsufvyvddq
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      middle_name:
+        custom: []
+        name: middle_name
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: amniihfqcoynlazghdtqt
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      last_name:
+        custom: []
+        name: last_name
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: qxbajwbpilpmufinllwlo
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      suffix:
+        custom: []
+        name: suffix
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: auydlsmsjuryvojcybzvr
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      date_of_birth:
+        custom: []
+        name: date_of_birth
+        description: 'Must be a valid date.'
+        required: false
+        example: '2026-04-26T22:32:55'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      gender:
+        custom: []
+        name: gender
+        description: ''
+        required: false
+        example: Female
+        type: string
+        enumValues:
+          - Male
+          - Female
+          - Other
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      civil_status:
+        custom: []
+        name: civil_status
+        description: ''
+        required: false
+        example: Married
+        type: string
+        enumValues:
+          - Single
+          - Married
+          - Widowed
+          - 'Legally Separated'
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      purok_or_street:
+        custom: []
+        name: purok_or_street
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: byickznkygloigmkwxphl
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      contact_number:
+        custom: []
+        name: contact_number
+        description: 'The new contact number.'
+        required: false
+        example: '09123456789'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      is_registered_voter:
+        custom: []
+        name: is_registered_voter
+        description: ''
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      occupation:
+        custom: []
+        name: occupation
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: uxjubqouzswiwxtrkimfc
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      residency_status:
+        custom: []
+        name: residency_status
+        description: ''
+        required: false
+        example: Active
+        type: string
+        enumValues:
+          - Active
+          - Moved
+          - Deceased
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      first_name: vmqeopfuudtdsufvyvddq
+      middle_name: amniihfqcoynlazghdtqt
+      last_name: qxbajwbpilpmufinllwlo
+      suffix: auydlsmsjuryvojcybzvr
+      date_of_birth: '2026-04-26T22:32:55'
+      gender: Female
+      civil_status: Married
+      purok_or_street: byickznkygloigmkwxphl
+      contact_number: '09123456789'
+      is_registered_voter: true
+      occupation: uxjubqouzswiwxtrkimfc
+      residency_status: Active
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 2|QPLZULRCAJn0AawU3fxv438vm9EjYeUribd335l44cbbca08'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/residents/{id}'
+    metadata:
+      custom: []
+      groupName: 'Resident Management'
+      groupDescription: |-
+
+        APIs for managing the barangay resident database.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Delete a resident'
+      description: 'Permanently removes a resident from the database.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer 2|QPLZULRCAJn0AawU3fxv438vm9EjYeUribd335l44cbbca08'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The UUID of the resident.'
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: consequatur
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 2|QPLZULRCAJn0AawU3fxv438vm9EjYeUribd335l44cbbca08'
+    controller: null
+    method: null
+    route: null
