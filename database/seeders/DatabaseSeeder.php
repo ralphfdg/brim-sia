@@ -26,7 +26,10 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
         ]);
 
-        // 2. Create one Resident
+        // Assign the newly created admin role to this user account
+        $adminUser->assignRole('admin');
+
+        // 3. Create one Resident
         Resident::create([
             'id' => (string) Str::uuid(),
             'first_name' => 'John',
