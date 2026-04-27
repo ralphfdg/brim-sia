@@ -27,9 +27,7 @@
     <nav class="sticky top-0 z-50 border-b border-slate-200 glass-effect">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-4">
-                <div class="w-10 h-10 bg-slate-900 flex items-center justify-center rounded shadow-sm">
-                    <span class="text-white font-bold text-xl leading-none">B</span>
-                </div>
+                    <img src="{{ asset('images/east-logo-modified.png') }}" alt="BRIM Logo" class="w-auto h-16">
                 <div>
                     <h1 class="text-sm font-bold uppercase tracking-widest text-slate-900">B.R.I.M.</h1>
                     <p class="text-[10px] text-slate-500 font-medium uppercase tracking-tighter">East Calaguiman
@@ -272,9 +270,7 @@
             <div class="grid md:grid-cols-4 gap-12 mb-12">
                 <div class="col-span-2">
                     <div class="flex items-center gap-3 text-white mb-6">
-                        <div class="w-8 h-8 bg-emerald-600 flex items-center justify-center rounded">
-                            <span class="font-bold">B</span>
-                        </div>
+                        <img src="{{ asset('images/east-logo-modified.png') }}" alt="BRIM Logo" class="w-auto h-16">
                         <span class="font-bold tracking-widest uppercase">B.R.I.M.</span>
                     </div>
                     <p class="max-w-xs text-sm leading-relaxed">
