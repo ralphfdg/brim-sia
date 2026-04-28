@@ -81,7 +81,7 @@
                                 <a href="#endpoints-GETapi-user">GET api/user</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-GETapi-weather">
-                                <a href="#endpoints-GETapi-weather">Fetch live weather data for Angeles City from an External API</a>
+                                <a href="#endpoints-GETapi-weather">Fetch live weather data for East Calaguiman from an External API</a>
                             </li>
                                                                         </ul>
                             </ul>
@@ -414,7 +414,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                         </form>
 
-                    <h2 id="endpoints-GETapi-weather">Fetch live weather data for Angeles City from an External API</h2>
+                    <h2 id="endpoints-GETapi-weather">Fetch live weather data for East Calaguiman from an External API</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -469,7 +469,7 @@ set-cookie: XSRF-TOKEN=eyJpdiI6IjZsNU1xTUJKbWE2REROZVNMbnZaaWc9PSIsInZhbHVlIjoiU
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;message&quot;: &quot;Weather data fetched successfully from Open-Meteo.&quot;,
-    &quot;location&quot;: &quot;Angeles City, Pampanga&quot;,
+    &quot;location&quot;: &quot;East Calaguiman, Bataan&quot;,
     &quot;temperature&quot;: &quot;26&deg;C&quot;,
     &quot;windspeed&quot;: &quot;6.2 km/h&quot;,
     &quot;is_day&quot;: &quot;Yes&quot;,

@@ -17,7 +17,7 @@
                 
                 <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 min-w-[240px] flex items-center justify-between">
                     <div>
-                        <h3 class="text-emerald-100 font-medium mb-1">Angeles City Weather</h3>
+                        <h3 class="text-emerald-100 font-medium mb-1">East Calaguiman Weather</h3>
                         <p id="weather-text" class="text-sm text-white/70">Loading status...</p>
                     </div>
                     <div id="weather-temp" class="text-4xl font-black text-white ml-4">--°</div>
