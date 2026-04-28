@@ -23,8 +23,8 @@
                     <td class="px-6 py-4">
                         <select onclick="event.stopPropagation()" onchange="updateStatus('{{ $inc->id }}', this.value)" class="text-xs font-bold rounded border-slate-300 py-1 pl-2 pr-6 shadow-sm focus:ring-emerald-500">
                             <option value="Pending" {{ $inc->status == 'Pending' ? 'selected' : '' }}>Pending</option>
-                            <option value="Acknowledged" {{ $inc->status == 'Acknowledged' ? 'selected' : '' }}>Acknowledged</option>
-                            <option value="Logged" {{ $inc->status == 'Logged' ? 'selected' : '' }}>Logged</option>
+                            <option value="Under Investigation" {{ $inc->status == 'Under Investigation' ? 'selected' : '' }}>Under Investigation</option>
+                            <option value="Resolved" {{ $inc->status == 'Resolved' ? 'selected' : '' }}>Resolved</option>
                         </select>
                     </td>
                     <td class="px-6 py-4 text-right text-emerald-600 font-bold">&rarr;</td>

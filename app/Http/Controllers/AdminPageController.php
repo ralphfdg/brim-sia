@@ -46,7 +46,8 @@ class AdminPageController extends Controller
 
     public function updateIncident(Request $request, $id)
     {
-        $request->validate(['status' => 'required|in:Pending,Acknowledged,Logged,Resolved']);
+        // FIX: Replaced old statuses with the correct DB Enums
+        $request->validate(['status' => 'required|in:Pending,Under Investigation,Resolved']);
         $incident = Incident::findOrFail($id);
         $incident->update(['status' => $request->status]);
         return response()->json(['message' => 'Incident status updated successfully']);

@@ -43,8 +43,7 @@
                 <label class="block text-sm font-semibold text-slate-700 mb-2">Change Status</label>
                 <select id="statusSelect" class="w-full rounded-xl border-slate-200 focus:border-emerald-500 focus:ring-emerald-500 shadow-sm mb-4">
                     <option value="Pending" {{ $incident->status == 'Pending' ? 'selected' : '' }}>Pending</option>
-                    <option value="Acknowledged" {{ $incident->status == 'Acknowledged' ? 'selected' : '' }}>Acknowledged</option>
-                    <option value="Logged" {{ $incident->status == 'Logged' ? 'selected' : '' }}>Logged</option>
+                    <option value="Under Investigation" {{ $incident->status == 'Under Investigation' ? 'selected' : '' }}>Under Investigation</option>
                     <option value="Resolved" {{ $incident->status == 'Resolved' ? 'selected' : '' }}>Resolved</option>
                 </select>
                 <button onclick="saveStatus()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl transition-all shadow-sm">
